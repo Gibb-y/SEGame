@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SEGame.EC.Components;
+using SEGame.Managers;
 
 namespace SEGame.EC.Scripts
 {
@@ -19,21 +20,23 @@ namespace SEGame.EC.Scripts
         {
             var delta = Vector2.Zero;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (InputManager.Instance.IsKeyDown(Keys.A))
             {
                 delta.X -= 1;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (InputManager.Instance.IsKeyDown(Keys.D))
             {
                 delta.X += 1;
             }
 
             _transform.Position += delta;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (InputManager.Instance.IsKeyJustDown(Keys.Space))
             {
-                _physics.Velocity -= Vector2.UnitY * 5;
+                var newVel = _physics.Velocity;
+                newVel.Y = -5;
+                _physics.Velocity = newVel;
             }
 
             if (_transform.Position.Y > 200)
@@ -41,6 +44,12 @@ namespace SEGame.EC.Scripts
                 var newPos = _transform.Position;
                 newPos.Y = 200;
                 _transform.Position = newPos;
+                if (_physics.Velocity.Y > 0)
+                {
+                    var newVel = _physics.Velocity;
+                    newVel.Y = 0;
+                    _physics.Velocity = newVel;
+                }
             }
         }
     }

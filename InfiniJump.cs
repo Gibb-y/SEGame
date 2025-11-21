@@ -15,6 +15,7 @@ namespace SEGame
         private EntityManager _entityManager;
         private AssetManager _assetManager;
         private DrawManager _drawManager;
+        private InputManager _inputManager;
         private Player _player;
 
         public InfiniJump()
@@ -31,6 +32,7 @@ namespace SEGame
             _entityManager = EntityManager.Instance;
             _assetManager = AssetManager.Instance;
             _drawManager = DrawManager.Instance;
+            _inputManager = InputManager.Instance;
             _entityManager.AddEntity(_player);
             _drawManager.AddDrawable(_player.GetComponent<Animator>());
             base.Initialize();
@@ -55,6 +57,7 @@ namespace SEGame
                 Exit();
 
             // TODO: Add your update logic here
+            _inputManager.Update(gameTime);
             _entityManager.Update(gameTime);
             base.Update(gameTime);
         }
