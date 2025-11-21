@@ -23,14 +23,18 @@ namespace SEGame.EC.Components
         public void Initialize(Entity entity)
         {
             _transform = entity.GetComponent<Transform>();
-            Drag = 10;
-            Gravity = .1f;
+            Drag = 1.2f;
+            Gravity = .3f;
         }
 
         public void Update(Entity entity, GameTime gameTime)
         {
-            Velocity += _gravityVector;
+            var newVel = Velocity;
+            newVel += _gravityVector;
+            newVel.X /= Drag;
+            //newVel.Y -= Drag;
             //Velocity = (100 - (Drag / 100)) * Velocity;
+            Velocity = newVel;
             _transform.Position += Velocity;
         }
     }

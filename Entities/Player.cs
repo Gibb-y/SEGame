@@ -19,15 +19,23 @@ namespace SEGame.Entities
 
             AddScript(new PlayerScript());
 
-            var idleAnim = new Animation("idle", 4, AssetManager.Instance.GetTexture2D("idle"));
-            var runAnim = new Animation("run", 4, AssetManager.Instance.GetTexture2D("run"));
+            var idleAnim = new Animation("idle", 8, AssetManager.Instance.GetTexture2D("idle"));
+            var runAnim = new Animation("run", 8, AssetManager.Instance.GetTexture2D("run"));
+            var jumpAnim = new Animation("jump", 8, AssetManager.Instance.GetTexture2D("jump"));
+            var fallAnim = new Animation("fall", 8, AssetManager.Instance.GetTexture2D("fall"));
+
             for (int i = 0; i < 8; i++)
             {
                 idleAnim.AddFrame(new AnimationFrame(new Rectangle(32 * i, 0, 32, 32)));
                 runAnim.AddFrame(new AnimationFrame(new Rectangle(32 * i, 0, 32, 32)));
             }
+            jumpAnim.AddFrame(new AnimationFrame(new Rectangle(0, 0, 32, 32)));
+            fallAnim.AddFrame(new AnimationFrame(new Rectangle(0, 0, 32, 32)));
+
             GetComponent<Animator>().AddAnimation(idleAnim);
             GetComponent<Animator>().AddAnimation(runAnim);
+            GetComponent<Animator>().AddAnimation(jumpAnim);
+            GetComponent<Animator>().AddAnimation(fallAnim);
 
         }
     }

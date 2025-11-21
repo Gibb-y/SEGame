@@ -46,6 +46,8 @@ namespace SEGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _assetManager.AddTexture2D("idle", Content.Load<Texture2D>("Player/idle"));
             _assetManager.AddTexture2D("run", Content.Load<Texture2D>("Player/run"));
+            _assetManager.AddTexture2D("jump", Content.Load<Texture2D>("Player/jump"));
+            _assetManager.AddTexture2D("fall", Content.Load<Texture2D>("Player/fall"));
             // TODO: use this.Content to load your game content here
         }
 
