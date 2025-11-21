@@ -19,6 +19,8 @@ namespace SEGame
         private CollisionManager _collisionManager;
         private Player _player;
 
+        private bool _firstFrame = true;
+
         public InfiniJump()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -36,9 +38,6 @@ namespace SEGame
             _collisionManager = CollisionManager.Instance;
             _collisionManager.Initialize(400, 200);
 
-            _player = new();
-            _entityManager.AddEntity(_player);
-            _drawManager.AddDrawable(_player.GetComponent<Animator>());
             base.Initialize();
         }
 
@@ -46,19 +45,19 @@ namespace SEGame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _assetManager.AddTexture2D("idle", Content.Load<Texture2D>("Player/idle"));
-            var idleAnim = new Animation("idle", 4, AssetManager.Instance.GetTexture2D("idle"));
-            for (int i = 0; i < 8; i++)
-            {
-                idleAnim.AddFrame(new AnimationFrame(new Rectangle(32 * i, 0, 32, 32)));
-            }
-            _player.GetComponent<Animator>().AddAnimation(idleAnim);
+            _assetManager.AddTexture2D("run", Content.Load<Texture2D>("Player/run"));
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            if (_firstFrame)
+            {
+                _player = new();
+                _entityManager.AddEntity(_player);
+                _drawManager.AddDrawable(_player.GetComponent<Animator>());
+                _firstFrame = false;
+            }
 
             // TODO: Add your update logic here
             _inputManager.Update(gameTime);

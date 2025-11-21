@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SEGame.EC.Components;
+using SEGame.Managers;
 
 namespace SEGame.Collisions
 {
@@ -13,13 +14,29 @@ namespace SEGame.Collisions
         {
         }
 
-        public override void OnBoundingBox()
+        public override void OnBoundingBox(Rectangle boundingBox)
         {
             if (!InsideBoundingBox)
             {
-                _transform.Position = _transform.PreviousPosition;
+                var newPos = _transform.Position;
                 var newVel = _owner.GetComponent<Physics>().Velocity;
-                newVel.Y = 0;
+
+                Rectangle deltaX = new((int)_transform.Position.X, (int)_transform.PreviousPosition.Y, CollisionBox.Width, CollisionBox.Height);
+                Rectangle deltaY = new((int)_transform.PreviousPosition.X, (int)_transform.Position.Y, CollisionBox.Width, CollisionBox.Height);
+
+                if (!boundingBox.Contains(deltaX))
+                {
+                    newPos.X = _transform.PreviousPosition.X;
+                    newVel.X = 0;
+                }
+
+                if (!boundingBox.Contains(deltaY))
+                {
+                    newPos.Y = _transform.PreviousPosition.Y;
+                    newVel.Y = 0;
+                }
+
+                _transform.Position = newPos;
                 _owner.GetComponent<Physics>().Velocity = newVel;
             }
         }

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using SEGame.EC.Components;
 using SEGame.Managers;
+using System;
 
 namespace SEGame.EC.Scripts
 {
@@ -9,11 +10,13 @@ namespace SEGame.EC.Scripts
     {
         private Transform _transform;
         private Physics _physics;
+        private Animator _animator;
 
         public void Initialize(Entity entity)
         {
             _transform = entity.GetComponent<Transform>();
             _physics = entity.GetComponent<Physics>();
+            _animator = entity.GetComponent<Animator>();
         }
 
         public void Update(GameTime gameTime)
@@ -30,7 +33,14 @@ namespace SEGame.EC.Scripts
                 delta.X += 1;
             }
 
-            _transform.Position += delta;
+            _physics.Velocity += delta;
+
+            if (Math.Abs(_physics.Velocity.X) > 10)
+            {
+                var newVel = _physics.Velocity;
+                newVel.X = _physics.Velocity.X < 0 ? -10 : 10;
+                _physics.Velocity = newVel;
+            }
 
             if (InputManager.Instance.IsKeyJustDown(Keys.Space))
             {

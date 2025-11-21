@@ -55,6 +55,6 @@ namespace SEGame.Collisions
 
         public abstract void OnCollision(Collision collision);
 
-        public abstract void OnBoundingBox();
+        public abstract void OnBoundingBox(Rectangle boundingBox);
     }
 }

@@ -82,7 +82,7 @@ namespace SEGame.Managers
         {
             foreach (var collider in _colliders)
             {
-                collider.OnBoundingBox();
+                collider.OnBoundingBox(_boundingBox);
             }
         }
 

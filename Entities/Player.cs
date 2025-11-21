@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using SEGame.Animations;
 using SEGame.Collisions;
 using SEGame.EC;
 using SEGame.EC.Components;
 using SEGame.EC.Scripts;
+using SEGame.Managers;
 
 namespace SEGame.Entities
 {
@@ -14,7 +16,19 @@ namespace SEGame.Entities
             AddComponent(new Physics());
             AddComponent(new Animator());
             AddComponent(new PlayerCollider(new Rectangle(0, 0, 32, 32)));
+
             AddScript(new PlayerScript());
+
+            var idleAnim = new Animation("idle", 4, AssetManager.Instance.GetTexture2D("idle"));
+            var runAnim = new Animation("run", 4, AssetManager.Instance.GetTexture2D("run"));
+            for (int i = 0; i < 8; i++)
+            {
+                idleAnim.AddFrame(new AnimationFrame(new Rectangle(32 * i, 0, 32, 32)));
+                runAnim.AddFrame(new AnimationFrame(new Rectangle(32 * i, 0, 32, 32)));
+            }
+            GetComponent<Animator>().AddAnimation(idleAnim);
+            GetComponent<Animator>().AddAnimation(runAnim);
+
         }
     }
 }
