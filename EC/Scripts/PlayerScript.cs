@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SEGame.EC.Components;
 using SEGame.Managers;
@@ -48,6 +49,11 @@ namespace SEGame.EC.Scripts
                     _animator.SetAnimationAsActive("idle");
                 }
             }
+
+            if (_physics.Velocity.X > 0)
+                _animator.SpriteEffect = SpriteEffects.None;
+            else
+                _animator.SpriteEffect = SpriteEffects.FlipHorizontally;
 
             if (InputManager.Instance.IsKeyDown(Keys.A))
             {

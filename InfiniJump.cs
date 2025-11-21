@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SEGame.Animations;
 using SEGame.EC.Components;
 using SEGame.Entities;
 using SEGame.Managers;

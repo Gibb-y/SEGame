@@ -22,6 +22,8 @@ namespace SEGame.EC.Components
 
         protected Texture2D texture;
 
+        public SpriteEffects SpriteEffect { get; set; } = SpriteEffects.None;
+
         public Animator()
         {
             animations = new Dictionary<string, Animation>();
@@ -72,7 +74,7 @@ namespace SEGame.EC.Components
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(CurrentAnimation.Texture, _ownerTransform.Position, CurrentAnimation.CurrentFrame.SourceRectangle, Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 1);
+            spriteBatch.Draw(CurrentAnimation.Texture, _ownerTransform.Position, CurrentAnimation.CurrentFrame.SourceRectangle, Color.White, 0f, Vector2.Zero, 2, SpriteEffect, 1);
         }
 
         public void Initialize(Entity entity)
