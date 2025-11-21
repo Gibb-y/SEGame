@@ -12,12 +12,14 @@ namespace SEGame.EC.Scripts
         private Physics _physics;
         private Animator _animator;
         private bool _jumping = false;
+        private Vector2 _groundCheck;
 
         public void Initialize(Entity entity)
         {
             _transform = entity.GetComponent<Transform>();
             _physics = entity.GetComponent<Physics>();
             _animator = entity.GetComponent<Animator>();
+            _groundCheck = new Vector2(16, 16 + 18);
         }
 
         public void Update(GameTime gameTime)
@@ -32,13 +34,19 @@ namespace SEGame.EC.Scripts
             {
                 _animator.SetAnimationAsActive("fall");
             }
-            else if (Math.Abs(_physics.Velocity.X) > 0.01f)
-            {
-                _animator.SetAnimationAsActive("run");
-            }
             else
             {
-                _animator.SetAnimationAsActive("idle");
+                if (!CollisionManager.Instance.BoundingBox.Contains(_transform.Position + _groundCheck))
+                    _jumping = false;
+
+                if (Math.Abs(_physics.Velocity.X) > 0.01f)
+                {
+                    _animator.SetAnimationAsActive("run");
+                }
+                else
+                {
+                    _animator.SetAnimationAsActive("idle");
+                }
             }
 
             if (InputManager.Instance.IsKeyDown(Keys.A))
@@ -62,10 +70,14 @@ namespace SEGame.EC.Scripts
 
             if (InputManager.Instance.IsKeyJustDown(Keys.Space))
             {
+                if (_jumping)
+                    return;
+
                 var newVel = _physics.Velocity;
                 newVel.Y = -10;
                 _physics.Velocity = newVel;
                 _animator.PlayAnimationOnce("jump");
+                _jumping = true;
             }
         }
     }

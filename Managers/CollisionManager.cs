@@ -9,6 +9,8 @@ namespace SEGame.Managers
         private List<Collider> _colliders;
         private Rectangle _boundingBox;
 
+        public Rectangle BoundingBox => _boundingBox;
+
         public CollisionManager()
         {
             _colliders = new();
