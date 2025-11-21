@@ -38,19 +38,6 @@ namespace SEGame.EC.Scripts
                 newVel.Y = -5;
                 _physics.Velocity = newVel;
             }
-
-            if (_transform.Position.Y > 200)
-            {
-                var newPos = _transform.Position;
-                newPos.Y = 200;
-                _transform.Position = newPos;
-                if (_physics.Velocity.Y > 0)
-                {
-                    var newVel = _physics.Velocity;
-                    newVel.Y = 0;
-                    _physics.Velocity = newVel;
-                }
-            }
         }
     }
 }

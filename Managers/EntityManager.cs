@@ -27,7 +27,14 @@ namespace SEGame.Managers
         {
             foreach (var ent in _entities)
             {
-                ent.Update(gameTime);
+                ent.UpdateComponents(gameTime);
+            }
+
+            CollisionManager.Instance.Update();
+
+            foreach (var ent in _entities)
+            {
+                ent.UpdateScripts(gameTime);
             }
         }
     }

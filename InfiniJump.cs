@@ -16,6 +16,7 @@ namespace SEGame
         private AssetManager _assetManager;
         private DrawManager _drawManager;
         private InputManager _inputManager;
+        private CollisionManager _collisionManager;
         private Player _player;
 
         public InfiniJump()
@@ -28,11 +29,14 @@ namespace SEGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _player = new();
             _entityManager = EntityManager.Instance;
             _assetManager = AssetManager.Instance;
             _drawManager = DrawManager.Instance;
             _inputManager = InputManager.Instance;
+            _collisionManager = CollisionManager.Instance;
+            _collisionManager.Initialize(400, 200);
+
+            _player = new();
             _entityManager.AddEntity(_player);
             _drawManager.AddDrawable(_player.GetComponent<Animator>());
             base.Initialize();

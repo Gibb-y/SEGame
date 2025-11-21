@@ -1,13 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
+using SEGame.Managers;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SEGame.EC
 {
-    public class Entity
+    public abstract class Entity
     {
         private List<IComponent> _components;
         private List<IScript> _scripts;
+
+        public delegate void OnDestroyDelegate();
+        public OnDestroyDelegate OnDestroy;
 
         public Entity()
         {
@@ -47,17 +51,26 @@ namespace SEGame.EC
             return _scripts.OfType<T>().First();
         }
 
-        public void Update(GameTime gameTime)
+        public void UpdateComponents(GameTime gameTime)
         {
             for (int i = 0; i < _components.Count; i++)
             {
                 _components[i].Update(this, gameTime);
             }
+        }
 
+        public void UpdateScripts(GameTime gameTime)
+        {
             for (int i = 0; i < _scripts.Count; i++)
             {
                 _scripts[i].Update(gameTime);
             }
+        }
+
+        public void Destroy()
+        {
+            OnDestroy?.Invoke();
+            EntityManager.Instance.RemoveEntity(this);
         }
     }
 }
