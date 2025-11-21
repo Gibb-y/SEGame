@@ -24,6 +24,9 @@ namespace SEGame
         public InfiniJump()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.IsFullScreen = false;
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 800;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -36,7 +39,7 @@ namespace SEGame
             _drawManager = DrawManager.Instance;
             _inputManager = InputManager.Instance;
             _collisionManager = CollisionManager.Instance;
-            _collisionManager.Initialize(400, 200);
+            _collisionManager.Initialize(1280, 800);
 
             base.Initialize();
         }

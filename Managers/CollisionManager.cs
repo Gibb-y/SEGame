@@ -19,7 +19,7 @@ namespace SEGame.Managers
         public void Initialize(int width, int height)
         {
             var xOffset = (int)(width * 0.1);
-            var yOffset = (int)(height * 0.1);
+            var yOffset = (int)(height * 0.2);
             _boundingBox = new Rectangle(xOffset / 2, yOffset / 2, width - xOffset, height - yOffset);
         }
 
