@@ -21,6 +21,7 @@ namespace SEGame.EC.Components
         private string prevAnimation;
 
         protected Texture2D texture;
+        public Vector2 Offset { get; set; } = Vector2.Zero;
 
         public SpriteEffects SpriteEffect { get; set; } = SpriteEffects.None;
 
@@ -28,6 +29,11 @@ namespace SEGame.EC.Components
         {
             animations = new Dictionary<string, Animation>();
             playOnce = false;
+        }
+
+        public static AnimatorBuilder Builder()
+        {
+            return new AnimatorBuilder();
         }
 
         public bool AddAnimation(Animation animation)
@@ -74,7 +80,7 @@ namespace SEGame.EC.Components
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(CurrentAnimation.Texture, _ownerTransform.Position, CurrentAnimation.CurrentFrame.SourceRectangle, Color.White, 0f, Vector2.Zero, 2, SpriteEffect, 1);
+            spriteBatch.Draw(CurrentAnimation.Texture, _ownerTransform.Position + Offset, CurrentAnimation.CurrentFrame.SourceRectangle, Color.White, 0f, Vector2.Zero, 2, SpriteEffect, 1);
         }
 
         public void Initialize(Entity entity)
@@ -93,6 +99,33 @@ namespace SEGame.EC.Components
             {
                 SetAnimationAsActive(prevAnimation);
                 playOnce = false;
+            }
+        }
+
+        public class AnimatorBuilder
+        {
+            private Animator _animator;
+
+            public AnimatorBuilder()
+            {
+                _animator = new();
+            }
+
+            public Animator Build()
+            {
+                return _animator;
+            }
+
+            public AnimatorBuilder AddAnimation(Animation animation)
+            {
+                _animator.AddAnimation(animation);
+                return this;
+            }
+
+            public AnimatorBuilder SetOffset(Vector2 Offset)
+            {
+                _animator.Offset = Offset;
+                return this;
             }
         }
     }

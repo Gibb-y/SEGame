@@ -49,6 +49,7 @@ namespace SEGame
             _assetManager.AddTexture2D("run", Content.Load<Texture2D>("Player/run"));
             _assetManager.AddTexture2D("jump", Content.Load<Texture2D>("Player/jump"));
             _assetManager.AddTexture2D("fall", Content.Load<Texture2D>("Player/fall"));
+            _assetManager.AddTexture2D("terrain", Content.Load<Texture2D>("Environment/terrain"));
             // TODO: use this.Content to load your game content here
         }
 
@@ -57,8 +58,10 @@ namespace SEGame
             if (_firstFrame)
             {
                 _player = new();
+                var platform = new Platform(new Point(400, 600), new Rectangle(400, 600, 16 * 3, 16));
                 _entityManager.AddEntity(_player);
-                _drawManager.AddDrawable(_player.GetComponent<Animator>());
+                _entityManager.AddEntity(platform);
+                //_drawManager.AddDrawable(_player.GetComponent<Animator>());
                 _firstFrame = false;
             }
 

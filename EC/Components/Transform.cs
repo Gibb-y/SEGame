@@ -14,6 +14,12 @@ namespace SEGame.EC.Components
             PreviousPosition = position;
         }
 
+        public Transform(Point position)
+        {
+            Position = position.ToVector2();
+            PreviousPosition = position.ToVector2();
+        }
+
         public Vector2 Position { get; set; } = Vector2.Zero;
         public Vector2 PreviousPosition { get; private set; } = Vector2.Zero;
         public float Rotation { get; set; }
