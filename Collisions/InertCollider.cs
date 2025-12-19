@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SEGame.EC.Components;
 namespace SEGame.Collisions
 {
     public class InertCollider : Collider
@@ -7,7 +8,7 @@ namespace SEGame.Collisions
         {
         }
 
-        public InertCollider(Rectangle collisionBox) : base(collisionBox)
+        public InertCollider(Rectangle collisionBox, bool debug = false) : base(collisionBox, debug)
         {
         }
 

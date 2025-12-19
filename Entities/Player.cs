@@ -15,7 +15,7 @@ namespace SEGame.Entities
             AddComponent(new Transform(new Vector2(100, 100)));
             AddComponent(new Physics());
             AddComponent(new Animator());
-            AddComponent(new PlayerCollider(new Rectangle(0, 0, 32, 32)));
+            AddComponent(new PlayerCollider(new Rectangle(0, 0, 32, 32), true));
 
             AddScript(new PlayerScript());
 

@@ -1,4 +1,6 @@
-﻿namespace SEGame.Collisions
+﻿using SEGame.EC.Components;
+
+namespace SEGame.Collisions
 {
     public struct Collision
     {

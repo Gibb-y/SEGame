@@ -31,6 +31,13 @@ namespace SEGame.EC.Components
             playOnce = false;
         }
 
+        public Animator(Vector2 offset)
+        {
+            animations = new Dictionary<string, Animation>();
+            playOnce = false;
+            Offset = offset;
+        }
+
         public static AnimatorBuilder Builder()
         {
             return new AnimatorBuilder();

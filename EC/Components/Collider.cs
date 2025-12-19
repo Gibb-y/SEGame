@@ -1,15 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
-using SEGame.EC;
-using SEGame.EC.Components;
+using Microsoft.Xna.Framework.Graphics;
+using SEGame.Collisions;
 using SEGame.Managers;
+using SEGame.Util;
 using System.Collections.Generic;
 
-namespace SEGame.Collisions
+namespace SEGame.EC.Components
 {
-    public abstract class Collider : IComponent
+    public abstract class Collider : IComponent, IDrawableComponent
     {
         protected Entity _owner;
         protected Transform _transform;
+        private bool _debug;
+        private Texture2D _debugShape;
 
         private HashSet<Collision> _collisions;
         public HashSet<Collision> Collisions { get => _collisions; }
@@ -22,10 +25,13 @@ namespace SEGame.Collisions
             _collisions = new();
         }
 
-        public Collider(Rectangle collisionBox)
+        public Collider(Rectangle collisionBox, bool debug = false)
         {
             _collisions = new();
             CollisionBox = collisionBox;
+            _debug = debug;
+            if (_debug)
+                _debugShape = Shapes.Instance.CreateRectangle(CollisionBox.Width, CollisionBox.Height);
         }
 
         public void Initialize(Entity entity)
@@ -56,5 +62,11 @@ namespace SEGame.Collisions
         public abstract void OnCollision(Collision collision);
 
         public abstract void OnBoundingBox(Rectangle boundingBox);
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            if (_debug)
+                spriteBatch.Draw(_debugShape, _transform.Position, null, Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 1);
+        }
     }
 }

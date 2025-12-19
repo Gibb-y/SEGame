@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SEGame.Collisions;
 using SEGame.EC.Components;
 using SEGame.Entities;
 using SEGame.Managers;
+using SEGame.Util;
 
 namespace SEGame
 {
@@ -16,6 +18,8 @@ namespace SEGame
         private InputManager _inputManager;
         private CollisionManager _collisionManager;
         private Player _player;
+        private Rectangle _playerCollisionBox;
+        private Rectangle _platformCollisionBox;
 
         private bool _firstFrame = true;
 
@@ -38,6 +42,7 @@ namespace SEGame
             _inputManager = InputManager.Instance;
             _collisionManager = CollisionManager.Instance;
             _collisionManager.Initialize(1280, 800);
+            Shapes.Instance.Initialize(GraphicsDevice);
 
             base.Initialize();
         }
@@ -62,6 +67,7 @@ namespace SEGame
                 _entityManager.AddEntity(_player);
                 _entityManager.AddEntity(platform);
                 //_drawManager.AddDrawable(_player.GetComponent<Animator>());
+                _collisionManager.DebugFFS(_player.GetComponent<PlayerCollider>().CollisionBox, platform.GetComponent<InertCollider>().CollisionBox);
                 _firstFrame = false;
             }
 

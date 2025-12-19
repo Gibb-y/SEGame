@@ -12,7 +12,7 @@ namespace SEGame.Entities
         public Platform(Point location, Rectangle collisionBox, string animName = "defaultplatform")
         {
             AddComponent(new Transform(location));
-            AddComponent(new InertCollider(collisionBox));
+            AddComponent(new InertCollider(collisionBox, true));
 
             Animation defaultPlatformStart = new("defaultplatform-start", 1, AssetManager.Instance.GetTexture2D("terrain"));
             Animation defaultPlatformMiddle = new("defaultplatform-middle", 1, AssetManager.Instance.GetTexture2D("terrain"));

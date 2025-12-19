@@ -10,7 +10,7 @@ namespace SEGame.Collisions
         {
         }
 
-        public PlayerCollider(Rectangle collisionBox) : base(collisionBox)
+        public PlayerCollider(Rectangle collisionBox, bool debug = false) : base(collisionBox, debug)
         {
         }
 
@@ -43,7 +43,28 @@ namespace SEGame.Collisions
 
         public override void OnCollision(Collision collision)
         {
-            
+            bool isFirst = collision.FirstCollisionObject.Equals(this);
+
+            var newPos = _transform.Position;
+            var newVel = _owner.GetComponent<Physics>().Velocity;
+
+            Rectangle deltaX = new((int)_transform.Position.X, (int)_transform.PreviousPosition.Y, CollisionBox.Width, CollisionBox.Height);
+            Rectangle deltaY = new((int)_transform.PreviousPosition.X, (int)_transform.Position.Y, CollisionBox.Width, CollisionBox.Height);
+
+            if (deltaX.Intersects(isFirst ? collision.SecondCollisionObject.CollisionBox : collision.FirstCollisionObject.CollisionBox))
+            {
+                newPos.X = _transform.PreviousPosition.X;
+                newVel.X = 0;
+            }
+
+            if (deltaY.Intersects(isFirst ? collision.SecondCollisionObject.CollisionBox : collision.FirstCollisionObject.CollisionBox))
+            {
+                newPos.Y = _transform.PreviousPosition.Y;
+                newVel.Y = 0;
+            }
+
+            _transform.Position = newPos;
+            _owner.GetComponent<Physics>().Velocity = newVel;
         }
     }
 }

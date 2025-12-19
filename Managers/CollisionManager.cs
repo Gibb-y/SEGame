@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using SEGame.Collisions;
+using SEGame.EC.Components;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SEGame.Managers
 {
@@ -8,6 +10,8 @@ namespace SEGame.Managers
     {
         private List<Collider> _colliders;
         private Rectangle _boundingBox;
+        private Rectangle _debugPlayer;
+        private Rectangle _debugPlatform;
 
         public Rectangle BoundingBox => _boundingBox;
 
@@ -21,6 +25,12 @@ namespace SEGame.Managers
             var xOffset = (int)(width * 0.1);
             var yOffset = (int)(height * 0.2);
             _boundingBox = new Rectangle(xOffset / 2, yOffset / 2, width - xOffset, height - yOffset);
+        }
+
+        public void DebugFFS(Rectangle debugPlayer, Rectangle debugPlatform)
+        {
+            _debugPlayer = debugPlayer;
+            _debugPlatform = debugPlatform;
         }
 
         public void RegisterCollider(Collider collider)
@@ -39,6 +49,8 @@ namespace SEGame.Managers
             {
                 collider.Update(null, null);
             }
+
+            Debug.WriteLine(_debugPlayer.Intersects(_debugPlatform));
 
             for (int i = 0; i < _colliders.Count; i++)
             {
@@ -104,10 +116,10 @@ namespace SEGame.Managers
             ClearCollisions();
 
             ProcessBoundingBox();
+            ProcessCollisions();
             ProcessOnBoundingBox();
 
-            ProcessCollisions();
-            ProcessBoundingBox();
+            //ProcessBoundingBox();
             ProcessOnCollision();
         }
     }
