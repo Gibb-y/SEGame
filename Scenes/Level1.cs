@@ -8,26 +8,34 @@ namespace SEGame.Scenes
 {
     public class Level1 : IScene
     {
-        public string Name => "Level 1";
+        public string Name => "level_1";
 
         private EntityManager _entityManager;
+        private DrawManager _drawManager;
+
+        public Level1()
+        {
+            _entityManager = EntityManager.Instance;
+            _drawManager = DrawManager.Instance;
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            _drawManager.Draw(spriteBatch);
         }
 
         public void Initialize(GameTime gameTime)
         {
-            _entityManager = EntityManager.Instance;
-
             Player _player = new();
             var platform = new Platform(new Point(400, 600), new Rectangle(400, 600, 16 * 3, 16));
-            var platform2 = new Platform(new Point(600, 400), new Rectangle(400, 600, 16 * 3, 16));
+            var platform2 = new Platform(new Point(600, 500), new Rectangle(400, 600, 16 * 8, 16));
+            var platform3 = new Platform(new Point(900, 400), new Rectangle(400, 600, 16 * 3, 16));
+            var platform4 = new Platform(new Point(750, 250), new Rectangle(400, 600, 16 * 3, 16));
 
             _entityManager.AddEntity(_player);
             _entityManager.AddEntity(platform);
             _entityManager.AddEntity(platform2);
+            _entityManager.AddEntity(platform3);
         }
 
         public void Update(GameTime gameTime)

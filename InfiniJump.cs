@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SEGame.Collisions;
-using SEGame.EC.Components;
-using SEGame.Entities;
 using SEGame.Managers;
 using SEGame.Scenes;
+using SEGame.UI;
 using SEGame.Util;
 
 namespace SEGame
@@ -13,17 +11,11 @@ namespace SEGame
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private EntityManager _entityManager;
         private AssetManager _assetManager;
         private DrawManager _drawManager;
-        private InputManager _inputManager;
         private CollisionManager _collisionManager;
-        private Player _player;
-        private Rectangle _playerCollisionBox;
-        private Rectangle _platformCollisionBox;
         private SceneManager _sceneManager;
 
-        private bool _firstFrame = true;
 
         public InfiniJump()
         {
@@ -38,16 +30,19 @@ namespace SEGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _entityManager = EntityManager.Instance;
             _assetManager = AssetManager.Instance;
             _drawManager = DrawManager.Instance;
-            _inputManager = InputManager.Instance;
             _collisionManager = CollisionManager.Instance;
             _collisionManager.Initialize(1280, 800);
             Shapes.Instance.Initialize(GraphicsDevice);
             _sceneManager = SceneManager.Instance;
+            UserInterfaceManager userInterfaceManager = UserInterfaceManager.Instance;
+            // main menu
+            userInterfaceManager.AddLayer(new UserInterfaceLayer("main_menu"));
+            userInterfaceManager.AddItemTo(new Canvas(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), "main_menu");
+            _sceneManager.AddScene("main_menu", new MainMenu());
             _sceneManager.AddScene("level_1", new Level1());
-            _sceneManager.SetSceneAsActive("level_1");
+            _sceneManager.SetSceneAsActive("main_menu");
             base.Initialize();
         }
 
@@ -65,20 +60,6 @@ namespace SEGame
 
         protected override void Update(GameTime gameTime)
         {
-            //if (_firstFrame)
-            //{
-            //    _player = new();
-            //    var platform = new Platform(new Point(400, 600), new Rectangle(400, 600, 16 * 3, 16));
-            //    _entityManager.AddEntity(_player);
-            //    _entityManager.AddEntity(platform);
-            //    //_drawManager.AddDrawable(_player.GetComponent<Animator>());
-            //    _collisionManager.DebugFFS(_player.GetComponent<PlayerCollider>().CollisionBox, platform.GetComponent<InertCollider>().CollisionBox);
-            //    _firstFrame = false;
-            //}
-
-            // TODO: Add your update logic here
-            //_inputManager.Update(gameTime);
-            //_entityManager.Update(gameTime);
             _sceneManager.Update(gameTime);
             base.Update(gameTime);
         }
@@ -89,6 +70,7 @@ namespace SEGame
 
             // TODO: Add your drawing code here
             _drawManager.Draw(_spriteBatch);
+            _sceneManager.Draw(_spriteBatch);
 
             base.Draw(gameTime);
         }
