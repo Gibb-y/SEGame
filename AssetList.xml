@@ -13,4 +13,12 @@
 		<name>ui_buttons</name>
 		<texture2d>UI/Buttons</texture2d>
 	</asset>
+	<asset>
+		<name>je_idle</name>
+		<texture2d>Enemies/Idle</texture2d>
+	</asset>
+	<asset>
+		<name>je_jump</name>
+		<texture2d>Enemies/Jump</texture2d>
+	</asset>
 </assets>

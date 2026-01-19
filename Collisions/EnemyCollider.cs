@@ -1,17 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using SEGame.EC.Components;
-using SEGame.Managers;
-using System.Diagnostics;
 
 namespace SEGame.Collisions
 {
-    public class PlayerCollider : Collider
+    public class EnemyCollider : Collider
     {
-        public PlayerCollider()
-        {
-        }
-
-        public PlayerCollider(Rectangle collisionBox, Vector2 Offset, bool debug = false) : base(collisionBox, Offset, debug)
+        public EnemyCollider(Rectangle collisionBox, Vector2 Offset, bool debug = false) : base(collisionBox, Offset, debug)
         {
         }
 
@@ -45,13 +39,6 @@ namespace SEGame.Collisions
         public override void OnCollision(Collision collision)
         {
             bool isFirst = collision.FirstCollisionObject.Equals(this);
-
-            if (isFirst)
-                if (collision.SecondCollisionObject is EnemyCollider)
-                {
-                    // lose level
-                    Debug.WriteLine("Auw");
-                }
 
             var newPos = _transform.Position;
             var newVel = _owner.GetComponent<Physics>().Velocity;

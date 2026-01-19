@@ -50,8 +50,6 @@ namespace SEGame.Managers
                 collider.Update(null, null);
             }
 
-            Debug.WriteLine(_debugPlayer.Intersects(_debugPlatform));
-
             for (int i = 0; i < _colliders.Count; i++)
             {
                 for (int j = 0; j < _colliders.Count; j++)
