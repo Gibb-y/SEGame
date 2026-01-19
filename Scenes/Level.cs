@@ -86,7 +86,7 @@ namespace SEGame.Scenes
             // Add retry button
             var retryBanner = new Banner(AssetManager.Instance.GetFont("weiholmir"), Vector2.Zero, 4, "Retry");
             var retryButton = new TextButton(retryBanner, AssetManager.Instance.GetTexture2D("ui_buttons"), 1, Vector2.Zero, new Rectangle(0, 448, 64, 32));
-            retryButton.OnButtonClick += () => { var currScene = SceneManager.Instance.GetScene; SceneManager.Instance.SetSceneAsActive("main_menu"); SceneManager.Instance.SetSceneAsActive(currScene.Name); };
+            retryButton.OnButtonClick += () => { var currScene = SceneManager.Instance.GetScene; currScene.Destroy(); currScene.Initialize(new GameTime()); CurrentGameSate = Playing; };
             retryButton.CenterTextOnTexture();
             retryButton.TextOffset = new Vector2(0, -25);
             goCanvas.AddItem(retryButton);

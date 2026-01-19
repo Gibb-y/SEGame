@@ -25,4 +25,8 @@
 		<name>goal</name>
 		<texture2d>Environment/End</texture2d>
 	</asset>
+	<asset>
+		<name>we_run</name>
+		<texture2d>Enemies/Run</texture2d>
+	</asset>
 </assets>
