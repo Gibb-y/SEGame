@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using SEGame.EC;
+using System.Linq;
 
 namespace SEGame.Managers
 {
@@ -29,6 +30,11 @@ namespace SEGame.Managers
             {
                 _entities[i].Destroy();
             }
+        }
+
+        public T FindByType<T>() where T : Entity
+        {
+            return _entities.Find(e => e is T) as T;
         }
 
         public void Update(GameTime gameTime)

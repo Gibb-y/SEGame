@@ -9,6 +9,7 @@ namespace SEGame.Scenes
     {
         public IGameState Paused;
         public IGameState Playing;
+        public IGameState Victory;
 
         private IGameState prevGameState;
 
@@ -19,6 +20,7 @@ namespace SEGame.Scenes
         {
             Paused = new PausedState(this);
             Playing = new PlayingState(this);
+            Victory = new VictoryState();
             CurrentGameSate = Playing;
 
             // set ui layer
@@ -56,9 +58,33 @@ namespace SEGame.Scenes
             canvas.AddItem(mainMenuButton);
             canvas.CenterItemHorizontally(mainMenuButton);
             canvas.CenterItemVertically(mainMenuButton);
+
+            // Create victory menu
+            var victoryLayer = UserInterfaceManager.Instance.GetLayer("victory_menu");
+            var victoryCanvas = victoryLayer.Get<ICanvas>();
+            // Add quit button
+            victoryCanvas.AddItem(quitButton);
+            victoryCanvas.CenterItemHorizontally(quitButton);
+            victoryCanvas.CenterItemVertically(quitButton);
+            quitButton.Position += new Vector2(0, 200);
+            // Ad main menu button
+            victoryCanvas.AddItem(mainMenuButton);
+            victoryCanvas.CenterItemHorizontally(mainMenuButton);
+            victoryCanvas.CenterItemVertically(mainMenuButton);
+            // add victory title
+            var titleBanner = new Banner(AssetManager.Instance.GetFont("weiholmir"), Vector2.Zero, 8, "Victory");
+            victoryCanvas.AddItem(titleBanner);
+            victoryCanvas.CenterItemHorizontally(titleBanner);
+            victoryCanvas.CenterItemVertically(titleBanner);
+            titleBanner.Position += new Vector2(0, -300);
+
+
+
+
             // Show correct interface at correct time
             Paused.OnEntry += () => UserInterfaceManager.Instance.SetLayerAsActive("pause_menu");
             Playing.OnEntry += () => UserInterfaceManager.Instance.SetLayerAsActive("empty");
+            Victory.OnEntry += () => UserInterfaceManager.Instance.SetLayerAsActive("victory_menu");
         }
 
         public IGameState CurrentGameSate { get; set; }

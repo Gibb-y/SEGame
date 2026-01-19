@@ -44,6 +44,9 @@ namespace SEGame
             // pause screen
             userInterfaceManager.AddLayer(new UserInterfaceLayer("pause_menu"));
             userInterfaceManager.AddItemTo(new Canvas(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), "pause_menu");
+            // victory screen
+            userInterfaceManager.AddLayer(new UserInterfaceLayer("victory_menu"));
+            userInterfaceManager.AddItemTo(new Canvas(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), "victory_menu");
             // death screen
             userInterfaceManager.AddLayer(new UserInterfaceLayer("death_menu"));
             userInterfaceManager.AddItemTo(new Canvas(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), "death_menu");

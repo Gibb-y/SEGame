@@ -53,6 +53,13 @@ namespace SEGame.Collisions
                     Debug.WriteLine("Auw");
                 }
 
+            if (isFirst)
+                if (collision.SecondCollisionObject is TriggerCollider)
+                {
+                    var level = SceneManager.Instance.GetLevel!;
+                    level.CurrentGameSate = level.Victory;
+                }
+
             var newPos = _transform.Position;
             var newVel = _owner.GetComponent<Physics>().Velocity;
 

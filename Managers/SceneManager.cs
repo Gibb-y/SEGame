@@ -10,6 +10,7 @@ namespace SEGame.Managers
         private readonly IDictionary<string, IScene> scenes;
         private IScene activeScene;
         private string activeSceneName;
+        public Level? GetLevel { get { if (activeScene is Level level) return level; return null; } }
 
         public SceneManager()
         {

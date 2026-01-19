@@ -21,4 +21,8 @@
 		<name>je_jump</name>
 		<texture2d>Enemies/Jump</texture2d>
 	</asset>
+	<asset>
+		<name>goal</name>
+		<texture2d>Environment/End</texture2d>
+	</asset>
 </assets>
