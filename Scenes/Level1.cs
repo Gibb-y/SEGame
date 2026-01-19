@@ -6,22 +6,12 @@ using System;
 
 namespace SEGame.Scenes
 {
-    public class Level1 : IScene
+    public class Level1 : Level, IScene
     {
         public string Name => "level_1";
 
-        private EntityManager _entityManager;
-        private DrawManager _drawManager;
-
         public Level1()
         {
-            _entityManager = EntityManager.Instance;
-            _drawManager = DrawManager.Instance;
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            _drawManager.Draw(spriteBatch);
         }
 
         public void Initialize(GameTime gameTime)
@@ -38,16 +28,6 @@ namespace SEGame.Scenes
             _entityManager.AddEntity(platform2);
             _entityManager.AddEntity(platform3);
             _entityManager.AddEntity(enemy);
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            _entityManager.Update(gameTime);
-        }
-
-        public void Destroy()
-        {
-            _entityManager.Clear();
         }
     }
 }
