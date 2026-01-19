@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<assets>
+	<font>
+		<name>weiholmir</name>
+		<texture2d width="70">Fonts/WeiholmirFullSheet</texture2d>
+		<rectx>7</rectx>
+		<recty>7</recty>
+		<glyphs>
+			<glyphstring>ABCDEFGHIJKLMNOPQRSTUVWXYZ    abcdefghijklmnopqrstuvwxyz    0123456789!?.%;:$#'"/\()&amp;*+,-&lt;&gt;=@[]^_`{} </glyphstring>
+		</glyphs>
+	</font>
+	<asset>
+		<name>ui_buttons</name>
+		<texture2d>UI/Buttons</texture2d>
+	</asset>
+</assets>

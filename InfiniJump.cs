@@ -4,6 +4,7 @@ using SEGame.Collisions;
 using SEGame.EC.Components;
 using SEGame.Entities;
 using SEGame.Managers;
+using SEGame.Scenes;
 using SEGame.Util;
 
 namespace SEGame
@@ -20,6 +21,7 @@ namespace SEGame
         private Player _player;
         private Rectangle _playerCollisionBox;
         private Rectangle _platformCollisionBox;
+        private SceneManager _sceneManager;
 
         private bool _firstFrame = true;
 
@@ -43,7 +45,9 @@ namespace SEGame
             _collisionManager = CollisionManager.Instance;
             _collisionManager.Initialize(1280, 800);
             Shapes.Instance.Initialize(GraphicsDevice);
-
+            _sceneManager = SceneManager.Instance;
+            _sceneManager.AddScene("level_1", new Level1());
+            _sceneManager.SetSceneAsActive("level_1");
             base.Initialize();
         }
 
@@ -55,25 +59,27 @@ namespace SEGame
             _assetManager.AddTexture2D("jump", Content.Load<Texture2D>("Player/jump"));
             _assetManager.AddTexture2D("fall", Content.Load<Texture2D>("Player/fall"));
             _assetManager.AddTexture2D("terrain", Content.Load<Texture2D>("Environment/terrain"));
+            AssetLoader.LoadTextures2DFromXmlFile("C:\\Users\\Sander\\source\\repos\\SEGame\\AssetList.xml", Content);
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (_firstFrame)
-            {
-                _player = new();
-                var platform = new Platform(new Point(400, 600), new Rectangle(400, 600, 16 * 3, 16));
-                _entityManager.AddEntity(_player);
-                _entityManager.AddEntity(platform);
-                //_drawManager.AddDrawable(_player.GetComponent<Animator>());
-                _collisionManager.DebugFFS(_player.GetComponent<PlayerCollider>().CollisionBox, platform.GetComponent<InertCollider>().CollisionBox);
-                _firstFrame = false;
-            }
+            //if (_firstFrame)
+            //{
+            //    _player = new();
+            //    var platform = new Platform(new Point(400, 600), new Rectangle(400, 600, 16 * 3, 16));
+            //    _entityManager.AddEntity(_player);
+            //    _entityManager.AddEntity(platform);
+            //    //_drawManager.AddDrawable(_player.GetComponent<Animator>());
+            //    _collisionManager.DebugFFS(_player.GetComponent<PlayerCollider>().CollisionBox, platform.GetComponent<InertCollider>().CollisionBox);
+            //    _firstFrame = false;
+            //}
 
             // TODO: Add your update logic here
-            _inputManager.Update(gameTime);
-            _entityManager.Update(gameTime);
+            //_inputManager.Update(gameTime);
+            //_entityManager.Update(gameTime);
+            _sceneManager.Update(gameTime);
             base.Update(gameTime);
         }
 

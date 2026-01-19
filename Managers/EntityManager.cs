@@ -23,6 +23,11 @@ namespace SEGame.Managers
             _entities.Remove(entity);
         }
 
+        public void Clear()
+        {
+            _entities.Clear();
+        }
+
         public void Update(GameTime gameTime)
         {
             foreach (var ent in _entities)
