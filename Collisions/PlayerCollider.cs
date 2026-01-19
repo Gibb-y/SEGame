@@ -50,7 +50,8 @@ namespace SEGame.Collisions
                 if (collision.SecondCollisionObject is EnemyCollider)
                 {
                     // lose level
-                    Debug.WriteLine("Auw");
+                    var level = SceneManager.Instance.GetLevel!;
+                    level.CurrentGameSate = level.GameOver;
                 }
 
             if (isFirst)

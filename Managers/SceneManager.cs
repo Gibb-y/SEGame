@@ -11,6 +11,7 @@ namespace SEGame.Managers
         private IScene activeScene;
         private string activeSceneName;
         public Level? GetLevel { get { if (activeScene is Level level) return level; return null; } }
+        public IScene GetScene { get { return activeScene; } }
 
         public SceneManager()
         {

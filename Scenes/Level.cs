@@ -10,6 +10,7 @@ namespace SEGame.Scenes
         public IGameState Paused;
         public IGameState Playing;
         public IGameState Victory;
+        public IGameState GameOver;
 
         private IGameState prevGameState;
 
@@ -21,6 +22,7 @@ namespace SEGame.Scenes
             Paused = new PausedState(this);
             Playing = new PlayingState(this);
             Victory = new VictoryState();
+            GameOver = new GameOverState();
             CurrentGameSate = Playing;
 
             // set ui layer
@@ -78,6 +80,28 @@ namespace SEGame.Scenes
             victoryCanvas.CenterItemVertically(titleBanner);
             titleBanner.Position += new Vector2(0, -300);
 
+            // Create game over menu
+            var goLayer = UserInterfaceManager.Instance.GetLayer("death_menu");
+            var goCanvas = goLayer.Get<ICanvas>();
+            // Add retry button
+            var retryBanner = new Banner(AssetManager.Instance.GetFont("weiholmir"), Vector2.Zero, 4, "Retry");
+            var retryButton = new TextButton(retryBanner, AssetManager.Instance.GetTexture2D("ui_buttons"), 1, Vector2.Zero, new Rectangle(0, 448, 64, 32));
+            retryButton.OnButtonClick += () => { var currScene = SceneManager.Instance.GetScene; SceneManager.Instance.SetSceneAsActive("main_menu"); SceneManager.Instance.SetSceneAsActive(currScene.Name); };
+            retryButton.CenterTextOnTexture();
+            retryButton.TextOffset = new Vector2(0, -25);
+            goCanvas.AddItem(retryButton);
+            goCanvas.CenterItemHorizontally(retryButton);
+            goCanvas.CenterItemVertically(retryButton);
+            retryButton.Position += new Vector2(0, -200);
+            // Add quit button
+            goCanvas.AddItem(quitButton);
+            goCanvas.CenterItemHorizontally(quitButton);
+            goCanvas.CenterItemVertically(quitButton);
+            // Add main menu button
+            quitButton.Position += new Vector2(0, 200);
+            goCanvas.AddItem(mainMenuButton);
+            goCanvas.CenterItemHorizontally(mainMenuButton);
+            goCanvas.CenterItemVertically(mainMenuButton);
 
 
 
@@ -85,6 +109,7 @@ namespace SEGame.Scenes
             Paused.OnEntry += () => UserInterfaceManager.Instance.SetLayerAsActive("pause_menu");
             Playing.OnEntry += () => UserInterfaceManager.Instance.SetLayerAsActive("empty");
             Victory.OnEntry += () => UserInterfaceManager.Instance.SetLayerAsActive("victory_menu");
+            GameOver.OnEntry += () => UserInterfaceManager.Instance.SetLayerAsActive("death_menu");
         }
 
         public IGameState CurrentGameSate { get; set; }
