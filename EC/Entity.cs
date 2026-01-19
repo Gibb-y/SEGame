@@ -25,7 +25,10 @@ namespace SEGame.EC
             component.Initialize(this);
 
             if (component is IDrawableComponent drawableComponent)
+            {
                 DrawManager.Instance.AddDrawable(drawableComponent);
+                OnDestroy += () => DrawManager.Instance.RemoveDrawable(drawableComponent);
+            }
         }
 
         public void RemoveComponent(IComponent component)

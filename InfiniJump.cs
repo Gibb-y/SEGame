@@ -35,15 +35,21 @@ namespace SEGame
             _collisionManager = CollisionManager.Instance;
             _collisionManager.Initialize(1280, 800);
             Shapes.Instance.Initialize(GraphicsDevice);
+            base.Initialize();
             _sceneManager = SceneManager.Instance;
             UserInterfaceManager userInterfaceManager = UserInterfaceManager.Instance;
             // main menu
             userInterfaceManager.AddLayer(new UserInterfaceLayer("main_menu"));
             userInterfaceManager.AddItemTo(new Canvas(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), "main_menu");
-            _sceneManager.AddScene("main_menu", new MainMenu());
-            _sceneManager.AddScene("level_1", new Level1());
-            _sceneManager.SetSceneAsActive("main_menu");
-            base.Initialize();
+            // pause screen
+            userInterfaceManager.AddLayer(new UserInterfaceLayer("pause_menu"));
+            userInterfaceManager.AddItemTo(new Canvas(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), "pause_menu");
+            // death screen
+            userInterfaceManager.AddLayer(new UserInterfaceLayer("death_menu"));
+            userInterfaceManager.AddItemTo(new Canvas(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), "death_menu");
+            // empty layer
+            userInterfaceManager.AddLayer(new UserInterfaceLayer("empty"));
+            GameManager.Instance.Initialize(this, new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight));
         }
 
         protected override void LoadContent()
@@ -69,7 +75,7 @@ namespace SEGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            _drawManager.Draw(_spriteBatch);
+            //_drawManager.Draw(_spriteBatch);
             _sceneManager.Draw(_spriteBatch);
 
             base.Draw(gameTime);

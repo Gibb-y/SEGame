@@ -43,7 +43,7 @@ namespace SEGame.Scenes
             // Setup Quit button
             var quitBanner = new Banner(AssetManager.Instance.GetFont("weiholmir"), Vector2.Zero, 4, "Quit");
             var quitButton = new TextButton(quitBanner, AssetManager.Instance.GetTexture2D("ui_buttons"), 4, Vector2.Zero, new Rectangle(0, 448, 64, 32));
-            //quitButton.OnButtonClick += GameManager.Instance.QuitGame;
+            quitButton.OnButtonClick += GameManager.Instance.QuitGame;
             quitButton.CenterTextOnTexture();
             quitButton.TextOffset = new Vector2(0, -25);
             canvas.AddItem(quitButton);

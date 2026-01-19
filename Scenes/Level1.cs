@@ -10,7 +10,7 @@ namespace SEGame.Scenes
     {
         public string Name => "level_1";
 
-        public Level1()
+        public Level1() : base()
         {
         }
 

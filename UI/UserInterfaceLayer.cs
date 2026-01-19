@@ -29,8 +29,8 @@ namespace SEGame.UI
                 if (element is IClickable e)
                 {
                     var mouseState = Mouse.GetState();
-                    var left = mouseState.LeftButton;
-                    if (e.GetClickableArea().Contains(mouseState.Position) && Mouse.GetState().LeftButton == ButtonState.Pressed)
+                    var pressed = InputManager.Instance.IsJustPressed(MouseButtons.Left);
+                    if (e.GetClickableArea().Contains(mouseState.Position) && pressed)
                         e.OnClick();
                 }
                 if (element is ICanvas canvas)
@@ -39,8 +39,8 @@ namespace SEGame.UI
                     foreach (var item in clicables)
                     {
                         var mouseState = Mouse.GetState();
-                        var left = Mouse.GetState().LeftButton == ButtonState.Pressed;
-                        if (item.GetClickableArea().Contains(mouseState.Position) && left)
+                        var pressed = InputManager.Instance.IsJustPressed(MouseButtons.Left);
+                        if (item.GetClickableArea().Contains(mouseState.Position) && pressed)
                             item.OnClick();
                     }
                 }

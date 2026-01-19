@@ -25,7 +25,10 @@ namespace SEGame.Managers
 
         public void Clear()
         {
-            _entities.Clear();
+            for (int i = _entities.Count - 1; i >= 0; i--)
+            {
+                _entities[i].Destroy();
+            }
         }
 
         public void Update(GameTime gameTime)

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SEGame.Managers;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace SEGame.Scenes
 {
