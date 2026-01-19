@@ -31,7 +31,7 @@ namespace SEGame.Scenes
             UserInterfaceManager.Instance.SetLayerAsActive("main_menu");
             var ui = UserInterfaceManager.Instance.CurrentLayer;
             var canvas = ui.Get<ICanvas>();
-            // Setup Play button
+            // Setup level 1 button
             banner = new(AssetManager.Instance.GetFont("weiholmir"), new Vector2(100, 100), 4, "Level 1");
             button = new(banner, AssetManager.Instance.GetTexture2D("ui_buttons"), 4, new Vector2(100, 100), new Rectangle(0, 448, 64, 32));
             button.OnButtonClick += () => SceneManager.Instance.SetSceneAsActive("level_1");
@@ -40,6 +40,17 @@ namespace SEGame.Scenes
             canvas.AddItem(button);
             canvas.CenterItemHorizontally(button);
             canvas.CenterItemVertically(button);
+            button.Position += new Vector2(-300, 0);
+            // Setup level 2 button
+            var lvl2banner = new Banner(AssetManager.Instance.GetFont("weiholmir"), new Vector2(100, 100), 4, "Level 2");
+            var lvl2button = new TextButton(lvl2banner, AssetManager.Instance.GetTexture2D("ui_buttons"), 4, new Vector2(100, 100), new Rectangle(0, 448, 64, 32));
+            lvl2button.OnButtonClick += () => SceneManager.Instance.SetSceneAsActive("level_2");
+            lvl2button.CenterTextOnTexture();
+            lvl2button.TextOffset = new Vector2(0, -25);
+            canvas.AddItem(lvl2button);
+            canvas.CenterItemHorizontally(lvl2button);
+            canvas.CenterItemVertically(lvl2button);
+            lvl2button.Position += new Vector2(300, 0);
             // Setup Quit button
             var quitBanner = new Banner(AssetManager.Instance.GetFont("weiholmir"), Vector2.Zero, 4, "Quit");
             var quitButton = new TextButton(quitBanner, AssetManager.Instance.GetTexture2D("ui_buttons"), 4, Vector2.Zero, new Rectangle(0, 448, 64, 32));

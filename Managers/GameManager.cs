@@ -26,6 +26,7 @@ namespace SEGame.Managers
             //backgroundManager.SetBackground("default_paralax");
             SceneManager sceneManager = SceneManager.Instance;
             sceneManager.AddScene("level_1", new Level1());
+            sceneManager.AddScene("level_2", new Level2());
             sceneManager.AddScene("main_menu", new MainMenu());
             sceneManager.SetSceneAsActive("main_menu");
 
