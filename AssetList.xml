@@ -29,4 +29,8 @@
 		<name>we_run</name>
 		<texture2d>Enemies/Run</texture2d>
 	</asset>
+	<asset>
+		<name>spikes</name>
+		<texture2d>Enemies/Spikes</texture2d>
+	</asset>
 </assets>
