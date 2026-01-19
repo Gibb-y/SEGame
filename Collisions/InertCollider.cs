@@ -8,7 +8,7 @@ namespace SEGame.Collisions
         {
         }
 
-        public InertCollider(Rectangle collisionBox, bool debug = false) : base(collisionBox, debug)
+        public InertCollider(Rectangle collisionBox, Vector2 offset, bool debug = false) : base(collisionBox, offset, debug)
         {
         }
 

@@ -74,6 +74,9 @@ namespace SEGame.EC.Scripts
                 _physics.Velocity = newVel;
             }
 
+            if (Math.Abs(_physics.Velocity.Y) < 0.001f)
+                _jumping = false;
+
             if (InputManager.Instance.IsKeyJustDown(Keys.Space))
             {
                 if (_jumping)

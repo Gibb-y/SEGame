@@ -10,7 +10,7 @@ namespace SEGame.Collisions
         {
         }
 
-        public PlayerCollider(Rectangle collisionBox, bool debug = false) : base(collisionBox, debug)
+        public PlayerCollider(Rectangle collisionBox, Vector2 Offset, bool debug = false) : base(collisionBox, Offset, debug)
         {
         }
 

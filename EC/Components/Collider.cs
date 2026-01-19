@@ -19,16 +19,18 @@ namespace SEGame.EC.Components
 
         public bool InsideBoundingBox { get; set; }
         public Rectangle CollisionBox { get; set; }
+        public Vector2 Offset { get; set; }
 
         public Collider()
         {
             _collisions = new();
         }
 
-        public Collider(Rectangle collisionBox, bool debug = false)
+        public Collider(Rectangle collisionBox, Vector2 offset, bool debug = false)
         {
             _collisions = new();
             CollisionBox = collisionBox;
+            Offset = offset;
             _debug = debug;
             if (_debug)
                 _debugShape = Shapes.Instance.CreateRectangle(CollisionBox.Width, CollisionBox.Height);
@@ -45,7 +47,7 @@ namespace SEGame.EC.Components
         public void Update(Entity entity, GameTime gameTime)
         {
             var newColl = CollisionBox;
-            newColl.Location = _transform.Position.ToPoint();
+            newColl.Location = (_transform.Position + Offset).ToPoint();
             CollisionBox = newColl;
         }
 
@@ -66,7 +68,7 @@ namespace SEGame.EC.Components
         public void Draw(SpriteBatch spriteBatch)
         {
             if (_debug)
-                spriteBatch.Draw(_debugShape, _transform.Position, null, Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 1);
+                spriteBatch.Draw(_debugShape, new Vector2(CollisionBox.X, CollisionBox.Y), null, Color.White, 0f, Vector2.Zero, 2, SpriteEffects.None, 1);
         }
     }
 }
